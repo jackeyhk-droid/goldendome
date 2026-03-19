@@ -1,26 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <style>
-  /* 預設先隱藏整個網頁內容，防止密碼輸入前內容閃爍曝光 */
-  .app { display: none; }
-</style>
-<script>
-  // 這裡設定你的專屬密碼，請將 "Golden2026" 換成你想要的密碼
-  var myPassword = "23008133"; 
-  
-  var pwd = prompt("🔒 此為內部機密資料，請輸入訪問密碼：\n(Private Site. Enter password:)");
-  
-  if (pwd === myPassword) {
-    // 密碼正確，解除隱藏
-    document.write('<style>.app { display: block !important; }</style>');
-  } else {
-    // 密碼錯誤，清空畫面並停止載入
-    alert("密碼錯誤 (Incorrect Password)");
-    document.write('<div style="background:#0a0e17; height:100vh; width:100vw; position:fixed; top:0; left:0; text-align:center; padding-top:20%; color:#94a3c0; font-family:sans-serif; z-index:9999;"><h2>⛔ 存取被拒 (Access Denied)</h2><p>請重新整理網頁再試一次。</p></div>');
-    window.stop();
-  }
-</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Golden Dome — Project Relationship Map</title>
@@ -201,6 +181,78 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 </style>
 </head>
 <body>
+  <style>
+  /* 先隱藏原本的圖譜內容 */
+  .app { display: none; }
+
+  /* 密碼鎖畫面的專屬設計 (深色主題) */
+  #pwd-screen {
+    position: fixed; inset: 0; z-index: 9999;
+    background: #0a0e17; 
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    font-family: var(--font-sans);
+    color: #e2e8f0;
+  }
+  .pwd-box {
+    background: #141c2f;
+    border: 1px solid #1e2d4a;
+    padding: 36px 40px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.6);
+    width: 100%; max-width: 360px;
+  }
+  .pwd-box h2 { margin: 0 0 12px; font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+  .pwd-box p { color: #94a3c0; font-size: 14px; margin-bottom: 24px; line-height: 1.5; }
+  .pwd-input {
+    width: 100%; padding: 14px;
+    background: #0a0e17; border: 1px solid #1e2d4a;
+    color: #e2e8f0; border-radius: 8px;
+    font-size: 18px; margin-bottom: 16px;
+    outline: none; text-align: center;
+    letter-spacing: 4px; transition: border-color 0.2s;
+  }
+  .pwd-input:focus { border-color: #3b82f6; }
+  .pwd-btn {
+    width: 100%; padding: 14px;
+    background: #3b82f6; color: #fff;
+    border: none; border-radius: 8px;
+    font-size: 15px; font-weight: 600; letter-spacing: 0.5px;
+    cursor: pointer; transition: background 0.2s;
+  }
+  .pwd-btn:hover { background: #2563eb; }
+  #pwd-error { color: #ef4444; font-size: 13px; margin-top: 14px; display: none; font-weight: 500; }
+</style>
+
+<div id="pwd-screen">
+  <div class="pwd-box">
+    <h2>🔒 Private Access</h2>
+    <p>Please enter the password to view the Golden Dome Dashboard.</p>
+    <input type="password" id="pwd-input" class="pwd-input" placeholder="••••••••" onkeypress="if(event.key === 'Enter') checkPwd()">
+    <button class="pwd-btn" onclick="checkPwd()">Unlock Dashboard</button>
+    <div id="pwd-error">Incorrect password. Please try again.</div>
+  </div>
+</div>
+
+<script>
+  function checkPwd() {
+    // 這裡設定你的專屬密碼
+    var myPassword = "23008133"; 
+    
+    var input = document.getElementById("pwd-input").value;
+    if (input === myPassword) {
+      // 密碼正確：隱藏密碼畫面，顯示圖譜
+      document.getElementById("pwd-screen").style.display = "none";
+      document.querySelector(".app").style.display = "block";
+    } else {
+      // 密碼錯誤：顯示紅字警告，清空輸入框
+      document.getElementById("pwd-error").style.display = "block";
+      document.getElementById("pwd-input").value = "";
+      document.getElementById("pwd-input").focus();
+    }
+  }
+</script>
 <div class="app">
   <div class="header">
     <div class="header-top">
