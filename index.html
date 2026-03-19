@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <style>
+  /* 預設先隱藏整個網頁內容，防止密碼輸入前內容閃爍曝光 */
+  .app { display: none; }
+</style>
+<script>
+  // 這裡設定你的專屬密碼，請將 "Golden2026" 換成你想要的密碼
+  var myPassword = "23008133"; 
+  
+  var pwd = prompt("🔒 此為內部機密資料，請輸入訪問密碼：\n(Private Site. Enter password:)");
+  
+  if (pwd === myPassword) {
+    // 密碼正確，解除隱藏
+    document.write('<style>.app { display: block !important; }</style>');
+  } else {
+    // 密碼錯誤，清空畫面並停止載入
+    alert("密碼錯誤 (Incorrect Password)");
+    document.write('<div style="background:#0a0e17; height:100vh; width:100vw; position:fixed; top:0; left:0; text-align:center; padding-top:20%; color:#94a3c0; font-family:sans-serif; z-index:9999;"><h2>⛔ 存取被拒 (Access Denied)</h2><p>請重新整理網頁再試一次。</p></div>');
+    window.stop();
+  }
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Golden Dome — Project Relationship Map</title>
